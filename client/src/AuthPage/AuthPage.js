@@ -7,6 +7,7 @@ import "./authPage.css";
 export const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
 
+  // ändere isLogin value with function
   const handleAuthPageToggle = () => {
     setIsLogin((prev) => !prev);
   };

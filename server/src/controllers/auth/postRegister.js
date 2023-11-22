@@ -9,10 +9,10 @@ export const postRegister = async (req, res) => {
     const userExists = await User.exists({ email });
 
     if (userExists) {
-      return res.status(409).send("E-mail already in use");
+      return res.status(409).send("E-mail already in use."); //409 Konflikt
     }
 
-    const encryptedPassword = await bcrypt.hash(password, 10);
+    const encryptedPassword = await bcrypt.hash(password, 10); // 10 ist der Salt-Wert
 
     const user = await User.create({
       username,
@@ -20,23 +20,24 @@ export const postRegister = async (req, res) => {
       password: encryptedPassword,
     });
 
-    // create JWT token
+    // JWT-Token erstellen
     const token = jwt.sign(
-      // user details which we would like to encrypt in JWT token
+        // Benutzerdetails, die wir im JWT-Token verschlüsseln möchten
       {
         userId: user._id,
         email: user.email,
       },
-      // secret
+        // Geheimer Schlüssel für die JWT-Verschlüsselung
       process.env.TOKEN_KEY,
-      // addtional config
+        // weitere Optionen
       {
-        expiresIn: "8h",
+        expiresIn: "12h",
       }
     );
 
-    // send success response back to the user with data of register user and JWT
-    return res.status(201).json({
+    // Sende eine Erfolgsantwort zurück an den Benutzer mit den Daten des registrierten Benutzers und dem JWT-Token,
+    // damit der Client den JWT-Token in Cookies / Speicher / Local Storage speichern kann.
+    return res.status(201).json({  //201 Created
       userDetails: {
         email: user.email,
         username,

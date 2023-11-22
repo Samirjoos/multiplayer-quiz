@@ -11,22 +11,22 @@ export const postLogin = async (req, res) => {
     });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      // create jwt token
+      // JWT-Token erstellen
       const token = jwt.sign(
-        // user details which we would like to encrypt in JWT token
-        {
+          // Benutzerdetails, die wir im JWT-Token verschlüsseln möchten
+          {
           userId: user._id,
           email: user.email,
         },
-        // secret
-        process.env.TOKEN_KEY,
-        // addtional config
+          // Geheimer Schlüssel für die JWT-Verschlüsselung
+          process.env.TOKEN_KEY,
+          // weitere Optionen
         {
           expiresIn: "8h",
         }
       );
 
-      // send back response to the user
+      // Antwort an den Benutzer zurücksenden
       return res.status(200).json({
         userDetails: {
           email: user.email,

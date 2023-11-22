@@ -1,0 +1,28 @@
+# Ignoriert den .idea Ordner für das gesamte Projekt
+.idea/
+../.idea/
+
+# testing
+client/coverage
+
+# production
+client/build
+
+# Ignoriert den node_modules Ordner im client und server Verzeichnis
+client/node_modules/
+server/node_modules/
+
+# Ignoriert die .env Datei, die sensible Informationen enthält
+server/.env
+
+# Ignoriert das dist Verzeichnis (wenn Sie eines haben)
+server/dist/
+
+# MacOS-spezifische Dateien
+.DS_Store
+
+# Windows-spezifische Dateien
+Thumbs.db
+Desktop.ini
+
+
